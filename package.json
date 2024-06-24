@@ -1,0 +1,26 @@
+{
+  "name": "humanize-ai-text",
+  "version": "1.0.2",
+  "description": "SDK for Humanized AI Text API",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "humanize",
+    "ai",
+    "text"
+  ],
+  "author": "Cam Curry",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/humanize-ai-text.git"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.8",
+    "typescript": "^5.5.2"
+  }
+}
