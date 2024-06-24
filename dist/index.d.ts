@@ -1,18 +1,23 @@
-import { HumanizedOptions, HumanizedResponse } from "./types";
+interface HumanizedOptions {
+    apiKey?: string;
+    baseUrl?: string;
+}
+interface HumanizedResponse {
+    success: boolean;
+    input_words: number;
+    output_words: number;
+    humanizedText: string;
+}
+declare class HumanizedError extends Error {
+    status: number;
+    response: any;
+    constructor(message: string, status: number, response: any);
+}
 declare class HumanizedAI {
-    private client;
-    /**
-     * Creates an instance of HumanizedAI.
-     * @param {HumanizedOptions} options - The options to configure the SDK.
-     */
-    constructor(options: HumanizedOptions);
-    /**
-     * Humanizes the given text.
-     * @param {string} text - The text to humanize.
-     * @returns {Promise<HumanizedResponse>} The humanized text response.
-     * @throws {HumanizedError} If the API request fails.
-     */
+    private apiKey;
+    private baseUrl;
+    constructor(options?: HumanizedOptions);
     run(text: string): Promise<HumanizedResponse>;
 }
 export default HumanizedAI;
-export * from "./types";
+export { HumanizedOptions, HumanizedResponse, HumanizedError };

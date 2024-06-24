@@ -70,8 +70,9 @@ humanizeText();
 
 The SDK will automatically use the `HUMANIZED_AI_API_KEY` environment variable if it's set. This allows you to keep your API key secure and out of your codebase. You can set this variable in your shell or in a `.env` file:
 
-````sh
+```sh
 HUMANIZED_AI_API_KEY=your-api-key-here
+```
 
 ## TypeScript Support
 
@@ -94,7 +95,7 @@ async function humanizeText(text: string): Promise<HumanizedResponse> {
     throw error;
   }
 }
-````
+```
 
 ## API Reference
 

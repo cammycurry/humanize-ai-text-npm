@@ -1,19 +1,4 @@
 "use strict";
-// src/index.ts
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __exportStar = (this && this.__exportStar) || function(m, exports) {
-    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -23,50 +8,42 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const axios_1 = __importDefault(require("axios"));
-class HumanizedAI {
-    /**
-     * Creates an instance of HumanizedAI.
-     * @param {HumanizedOptions} options - The options to configure the SDK.
-     */
-    constructor(options) {
-        this.client = axios_1.default.create({
-            baseURL: options.baseUrl || "https://api.humanize-ai-text.ai/v1",
-            headers: {
-                Authorization: `Bearer ${options.apiKey}`,
-                "Content-Type": "application/json",
-            },
-        });
+exports.HumanizedError = void 0;
+class HumanizedError extends Error {
+    constructor(message, status, response) {
+        super(message);
+        this.name = "HumanizedError";
+        this.status = status;
+        this.response = response;
     }
-    /**
-     * Humanizes the given text.
-     * @param {string} text - The text to humanize.
-     * @returns {Promise<HumanizedResponse>} The humanized text response.
-     * @throws {HumanizedError} If the API request fails.
-     */
+}
+exports.HumanizedError = HumanizedError;
+class HumanizedAI {
+    constructor(options = {}) {
+        this.apiKey = options.apiKey || process.env.HUMANIZED_AI_API_KEY || "";
+        if (!this.apiKey) {
+            throw new Error("API key is required. Set it in the constructor or use the HUMANIZED_AI_API_KEY environment variable.");
+        }
+        this.baseUrl = options.baseUrl || "https://api.humanize-ai-text.ai/v1";
+    }
     run(text) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const response = yield this.client.post("/humanize", {
-                    text,
-                });
-                return response.data;
+            const url = `${this.baseUrl}/humanize`;
+            const response = yield fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${this.apiKey}`,
+                },
+                body: JSON.stringify({ text }),
+            });
+            if (!response.ok) {
+                const errorData = yield response.json();
+                throw new HumanizedError(errorData.message || "API request failed", response.status, errorData);
             }
-            catch (error) {
-                if (axios_1.default.isAxiosError(error) && error.response) {
-                    const humanizedError = new Error(`Humanized AI Error: ${error.response.data.error}`);
-                    humanizedError.status = error.response.status;
-                    humanizedError.response = error.response.data;
-                    throw humanizedError;
-                }
-                throw error;
-            }
+            return yield response.json();
         });
     }
 }
 exports.default = HumanizedAI;
-__exportStar(require("./types"), exports);
