@@ -1,6 +1,6 @@
 {
   "name": "humanize-ai-text",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "SDK for Humanized AI Text API",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -19,6 +19,7 @@
     "type": "git",
     "url": "https://github.com/cammycurry/humanize-ai-text-npm"
   },
+  "homepage": "https://humanize-ai-text.ai",
   "devDependencies": {
     "@types/node": "^20.14.8",
     "typescript": "^5.5.2"
