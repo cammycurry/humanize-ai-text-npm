@@ -1,6 +1,6 @@
 {
   "name": "humanize-ai-text",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "SDK for Humanized AI Text API",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -17,7 +17,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/humanize-ai-text.git"
+    "url": "https://github.com/cammycurry/humanize-ai-text-npm"
   },
   "devDependencies": {
     "@types/node": "^20.14.8",

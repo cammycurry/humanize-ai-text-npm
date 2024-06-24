@@ -4,7 +4,7 @@ This SDK provides easy access to the [Humanize AI Text](https://humanize-ai-text
 
 ## Repository
 
-[GitHub Repository](https://github.com/yourusername/humanize-ai-text)
+[GitHub Repository](https://github.com/cammycurry/humanize-ai-text-npm)
 
 ## Installation
 
@@ -154,4 +154,5 @@ try {
 ## Support
 
 If you have any questions or need help with the SDK, please contact us at [Humanized AI](https://humanize-ai-text.ai).
+
 # humanize-ai-text-npm
